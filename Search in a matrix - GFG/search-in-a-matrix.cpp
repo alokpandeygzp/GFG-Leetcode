@@ -7,16 +7,28 @@ using namespace std;
 //User function template for C++
 class Solution{
 public:	
-	int matSearch (vector <vector <int>> &arr, int N, int M, int X)
+	int matSearch (vector <vector <int>> &mat, int row, int col, int elt)
 	{
-	    for(int i=0;i<N;i++)
+	    //Aap ko first row ko last se traverse krna hai. Since matrix row/col is sorted 
+	    //Aapko jese pta lge ki ab element target se kam milne suru ho gye
+	    //to niche row par chle jao sidha. Or jis column se aapne pichli row ko chhoda hai
+	    //usi se traverse krna hai agli ko left ki side. same kam jab tak element nhi 
+	    //milta or milta to 1 return vrna 0.
+	    
+	    int i=0, j=col-1;
+	    
+	    while(i<row && j>=0)
 	    {
-	        for(int j=0;j<M;j++)
-	        {
-	            if(arr[i][j]==X)
-	                return 1;
-	        }
+	        if(mat[i][j]==elt)
+	            return 1;
+	            
+	        else if(mat[i][j]<elt)
+	            i++;
+	            
+	        else 
+	            j--;
 	    }
+	    
 	    return 0;
 	}
 };
