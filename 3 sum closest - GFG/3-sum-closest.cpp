@@ -7,32 +7,32 @@ using namespace std;
 
 class Solution{
     public:
-    int closest3Sum(int A[], int N, int X)
+    int closest3Sum(int arr[], int n, int x)
     {
-        int res = 0, diff = INT_MAX;
-        sort(A, A+N);
+        sort(arr,arr+n);
         
-        for(int i=0;i<N-2;i++)
+        int mini=INT_MAX,ans=0;
+        for(int i=0;i<n;i++)
         {
-            int low = i+1, high = N-1;
-            while(low < high)
+            int j=i+1,k=n-1;
+            while(j<k)
             {
-                int sum = A[i] + A[low] + A[high];
-                if(sum == X) 
-                    return sum;
-                else if(sum < X)
-                    low++;
-                else 
-                    high--;
-                
-                if(abs(X-sum) < diff)
+                int sum=arr[i]+arr[j]+arr[k];
+                    
+                if(abs(x-sum)<mini)
                 {
-                    diff = abs(X-sum);
-                    res = sum;
+                    mini=abs(x-sum);
+                    ans=sum;
                 }
-            } 
+                if(sum>x)
+                    k--;
+                else if(sum<x)
+                    j++;
+                else
+                    return sum;
+            }
         }
-        return res;
+        return ans;
     }
 };
 
