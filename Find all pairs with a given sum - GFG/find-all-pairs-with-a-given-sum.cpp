@@ -5,20 +5,22 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
-    vector<pair<int,int>> allPairs(int A[], int B[], int N, int M, int X)
+    vector<pair<int,int>> allPairs(int arr1[], int arr2[], int n, int m, int x)
     {
-        unordered_map<int,int> mp;
+        unordered_map<int,int> map;
         vector<pair<int,int>> ans;
         
-        for(int i=0;i<N;i++)
-            mp[A[i]]++;
+        for(int i=0;i<n;i++)
+            map[arr1[i]]++;
         
-        for(int i=0;i<M;i++)
+        for(int i=0;i<m;i++)
         {
-            if(mp.find(X-B[i])!=mp.end())
-                ans.push_back({X-B[i],B[i]});
+            if(map.find(x-arr2[i]) != map.end())
+                ans.push_back({x-arr2[i], arr2[i]});
         }
-        sort(ans.begin(),ans.end());
+        
+        sort(ans.begin(), ans.end());
+        
         return ans;
     }
 };
