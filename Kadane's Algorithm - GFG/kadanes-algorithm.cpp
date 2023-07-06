@@ -17,8 +17,7 @@ class Solution{
         
         for(int i=0;i<n;i++)
         {
-            if(sum==0)
-                start=i;
+            if(sum==0)  start=i;
             
             sum=sum+arr[i];
             
@@ -28,10 +27,8 @@ class Solution{
                 ansEnd=i;
             }
             
-            if(sum<0)
-                sum=0;
+            if(sum<0)   sum=0;
         }
-        
         return maxi;
     }
 };
