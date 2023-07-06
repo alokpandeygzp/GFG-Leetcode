@@ -4,48 +4,45 @@ using namespace std;
 
 // } Driver Code Ends
 
-
-int findLeft(int v[], int n, int x){
-        
-    int low=0, high=n-1;
-    int ans=-1;
-        
+int findLeft(int arr[], int n, int x)
+{
+    int low=0,high=n-1;
+    int ansLeft=-1;
     while(low<=high)
     {
         int mid=low+(high-low)/2;
-            
-        if(v[mid]==x){
-            ans=mid;
+        if(arr[mid]==x)
+        {
+            ansLeft=mid;
             high=mid-1;
         }
-        else if(v[mid]<x)
+        else if(arr[mid]<x)
             low=mid+1;
         else
             high=mid-1;
     }
-    return ans;
+    return ansLeft;
 }
-int findRight(int v[], int n, int x){
-        
-    int low=0, high=n-1;
-    int ans=-1;
-        
+int findRight(int arr[], int n, int x)
+{
+    int low=0,high=n-1;
+    int ansRight=-1;
     while(low<=high)
     {
         int mid=low+(high-low)/2;
-            
-        if(v[mid]==x){
-            ans=mid;
+        if(arr[mid]==x)
+        {
+            ansRight=mid;
             low=mid+1;
         }
-        else if(v[mid]<x)
+        else if(arr[mid]<x)
             low=mid+1;
         else
             high=mid-1;
     }
-    return ans;
+    return ansRight;
 }
-vector<int> find(int arr[], int n , int x )
+vector<int> find(int arr[], int n, int x)
 {
     vector<int> ans;
     ans.push_back(findLeft(arr,n,x));
