@@ -5,22 +5,19 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
 public:
-    int findMin(int arr[], int n){
+    int findMin(int arr[], int n)
+    {
         int low=0, high=n-1;
-        
-        // if(arr[low]<arr[high])
-        //     return low;
+        if(arr[low]<arr[high])  return arr[low];
         
         while(low<high)
         {
             int mid=low+(high-low)/2;
-            
-            if(arr[low]<=arr[mid] && arr[mid]>=arr[high])
+            if(arr[low]<=arr[mid] && arr[high]<=arr[mid])
                 low=mid+1;
             else
                 high=mid;
         }
-        
         return arr[low];
     }
 };
