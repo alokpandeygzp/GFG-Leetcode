@@ -5,17 +5,18 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
 public:
-    int f(int i, int x, int k, vector<int>&arr, int n)
+    int f(int index, int x, int k, vector<int>&arr, int n)
     {
-        if(i==n)
+        if(index==n)
         {
             if(x==k)    return 1;
             else        return 0;
         }
-        int notPick= f(i+1, x^arr[i],k,arr,n);
-        int pick=    f(i+1, x,k,arr,n);
+        int notPick= f(index+1, x^arr[index],k,arr,n);
+        int pick=    f(index+1, x,k,arr,n);
         return pick+notPick;
     }
+    
     int subsetXOR(vector<int> arr, int N, int K) 
     {
         return f(0,0,K,arr,N);
