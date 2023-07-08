@@ -10,32 +10,31 @@ class Solution
     //Function to rotate matrix anticlockwise by 90 degrees.
     void swap(int *a,int *b)
     {
-        int t=*a;
+        int temp=*a;
         *a=*b;
-        *b=t;
+        *b=temp;
     }
-    void findTranspose(vector<vector<int> >& matrix, int n)
+    void findTranspose(vector<vector<int>>& matrix, int n) 
     {
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<n;j++)
             {
-                if(i>=j)
-                    swap(&matrix[i][j], &matrix[j][i]);
+                if(i>j)  
+                swap(&matrix[i][j],&matrix[j][i]);
             }
         }
+        
     }
     void rotateby90(vector<vector<int> >& matrix, int n) 
-    { 
+    {
         findTranspose(matrix,n);
-        
-        int i=0,j=n-1;
-        while(i<=j)
+        for(int i=0,j=n-1;i<=j;i++,j--)
         {
             for(int k=0;k<n;k++)
-                swap(&matrix[i][k],&matrix[j][k]);
-            i++;
-            j--;
+            {
+                swap(&matrix[i][k], &matrix[j][k]);
+            }
         }
     } 
 };
