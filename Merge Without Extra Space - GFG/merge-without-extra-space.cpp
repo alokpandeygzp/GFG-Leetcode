@@ -7,20 +7,28 @@ using namespace std;
 class Solution{
     public:
         //Function to merge the arrays.
+        void swap(long long *a, long long *b)
+        {
+            long long temp=*a;
+            *a=*b;
+            *b=temp;
+        }
         void merge(long long arr1[], long long arr2[], int n, int m) 
         { 
             int i=0,j=0,k=n-1;
             
-            while(i<=k && j<m)
+            while(i<n && j<m)
             {
-                if(arr1[i]>arr2[j])
+                if(arr2[j]<arr1[i])
                 {
-                    swap(arr2[j],arr1[k]);
-                    j++;
+                    swap(&arr1[k], &arr2[j]);
                     k--;
+                    j++;
                 }
                 else
+                {
                     i++;
+                }
             }
             sort(arr1,arr1+n);
             sort(arr2,arr2+m);
