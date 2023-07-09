@@ -10,21 +10,21 @@ using namespace std;
 
 class Solution{
     public:
-    int maxLen(vector<int>&A, int n)
+    int maxLen(vector<int>&arr, int n)
     {   
-        unordered_map<int,int> hm;
-        int maxi=0,sum=0;
+        unordered_map<int,int> map;
+        int sum=0,maxi=0;
         for(int i=0;i<n;i++)
         {
-            sum+=A[i];
+            sum+=arr[i];
             if(sum==0)
-                maxi=i+1;
+                maxi=max(maxi,i+1);
             else
             {
-                if(hm.find(sum)!=hm.end())
-                    maxi=max(maxi,i-hm[sum]);
+                if(map.find(sum)==map.end())
+                    map[sum]=i;
                 else
-                    hm[sum]=i;
+                    maxi=max(maxi,i-map[sum]);
             }
         }
         return maxi;
