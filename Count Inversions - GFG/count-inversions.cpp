@@ -9,16 +9,16 @@ class Solution{
     // arr[]: Input Array
     // N : Size of the Array arr[]
     // Function to count inversions in the array.
-    long long merge(long long arr[], long long temp[], int left, int mid, int right)
+    long long int merge(int low,int mid,int high,long long arr[],long long temp[])
     {
-        long long int i, j, k, inv_count=0;
-        i=left, j=mid, k=left;
-        while((i<=mid-1) && (j<=right))
+        int i=low,j=mid,k=low;
+        long long int inv_count=0;
+        
+        while(i<=mid-1 && j<=high)
         {
             if(arr[i]<=arr[j])
                 temp[k++]=arr[i++];
-            else
-            {
+            else{
                 temp[k++]=arr[j++];
                 inv_count=inv_count+(mid-i);
             }
@@ -26,36 +26,35 @@ class Solution{
         
         while(i<=mid-1)
             temp[k++]=arr[i++];
-        while(j<=right)
-            temp[k++]=arr[j++];
-        for(int i=left;i<=right;i++)
-            arr[i]=temp[i];
         
+        while(j<=high)
+            temp[k++]=arr[j++];
+        
+        for(int i=low;i<=high;i++)
+            arr[i]=temp[i];
+            
         return inv_count;
     }
-    
-    long long int mergeSort(long long arr[], long long temp[], int left, int right)
+    long long int mergeSort(int low,int high,long long arr[],long long temp[])
     {
-        long long int mid, inv_count=0;
-        if(left<right)
+        long long int inv_count=0;
+        if(low<high)
         {
-            mid=(left+right)/2;
-            
-            inv_count+=mergeSort(arr,temp,left,mid);
-            inv_count+=mergeSort(arr,temp,mid+1,right);
-            
-            inv_count+=merge(arr,temp,left,mid+1,right);
+            int mid=low+(high-low)/2;
+        
+            inv_count+=mergeSort(low,mid,arr,temp);
+            inv_count+=mergeSort(mid+1,high,arr,temp);
+        
+            inv_count+=merge(low,mid+1,high,arr,temp);
         }
         return inv_count;
     }
-    
     long long int inversionCount(long long arr[], long long N)
     {
-        long long int temp[N];
-        long long int ans=mergeSort(arr, temp, 0, N-1);
-        return ans;
+        long long temp[N];
+        long long int inv_count=mergeSort(0,N-1,arr,temp);
+        return inv_count;
     }
-
 };
 
 //{ Driver Code Starts.
