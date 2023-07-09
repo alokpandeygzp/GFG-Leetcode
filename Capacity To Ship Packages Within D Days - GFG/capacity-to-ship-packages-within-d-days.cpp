@@ -10,31 +10,36 @@ class Solution {
   public:
   
     bool isValid(int arr[], int n, int k, int mid){
-        int sum=0,st=1;
-        for(int i=0;i<n;i++){   
+        int sum=0,ans=1;
+        for(int i=0;i<n;i++)
+        {   
             sum+=arr[i];
-            if(sum>mid){
+            if(sum>mid)
+            {
                 sum=arr[i];
-                st++;
+                ans++;
             }
         }
-        return (st<=k);
+        return (ans<=k);
     }
     int leastWeightCapacity(int arr[], int n, int k) {
         if(n<k) return -1;
-        int maxi=INT_MIN, sum=0;
-        for(int i=0;i<n;i++){
-            sum+=arr[i];
-            if(arr[i]>maxi) maxi=arr[i];
-        }        
-        int low=maxi, high=sum, res=-1;
-        while(low<=high){
+        
+        int low=*max_element(arr,arr+n);
+        int high=accumulate(arr,arr+n,0);
+        int res=-1;
+        
+        while(low<=high)
+        {
             int mid=low+(high-low)/2;
-            if(isValid(arr,n,k,mid)==true){
+            
+            if(isValid(arr,n,k,mid)==true)
+            {
                 res=mid;
                 high=mid-1;
             }
-            else    low=mid+1;
+            else    
+                low=mid+1;
         }
         return res;
     }
