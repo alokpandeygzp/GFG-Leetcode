@@ -55,21 +55,17 @@ class Solution{
     }
     bool isPalindrome(Node *head)
     {
-        if(head==NULL || head->next==NULL)
-            return true;
-            
-        Node *s=findMiddleNode(head);
+        Node *temp=head;
+        Node *middle=findMiddleNode(head);
+        Node *rev=reverseSecondPart(middle->next);
         
-        s->next=reverseSecondPart(s->next);
-        s=s->next;
-        
-        Node *f=head;
-        while(s!=NULL)
+        while(temp!=NULL && rev!=NULL)
         {
-            if(s->data!=f->data)
+            // cout<<temp->data<<"<->"<<rev->data<<endl;
+            if(temp->data!=rev->data)
                 return false;
-            f=f->next;
-            s=s->next;
+            rev=rev->next;
+            temp=temp->next;
         }
         return true;
     }
