@@ -23,23 +23,17 @@ class Solution{
                 res.push_back(arr2[j++]);
         }
         while(i<n)
-        {
             res.push_back(arr1[i++]);
-        }
+    
         while(j<m)
-        {
             res.push_back(arr2[j++]);
-        }
+        
     }
     double MedianOfArrays(vector<int>& arr1, vector<int>& arr2)
     {
         int n=arr1.size(), m=arr2.size();
         vector<int> res;
         merge(res, arr1, arr2);
-        
-        // for(auto i:res)
-        //     cout<<i<<endl;
-        // cout<<res[((n+m)/2.0)-1]+res[((n+m)/2.0)]<<endl;
         
         if((n+m)%2==0)
             return (res[((n+m)/2.0)-1]+res[((n+m)/2.0)])/2.0;
