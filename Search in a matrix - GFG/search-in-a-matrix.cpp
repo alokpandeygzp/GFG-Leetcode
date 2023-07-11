@@ -16,19 +16,15 @@ public:
 	    //milta or milta to 1 return vrna 0.
 	    
 	    int i=0, j=col-1;
-	    
 	    while(i<row && j>=0)
 	    {
 	        if(mat[i][j]==elt)
 	            return 1;
-	            
 	        else if(mat[i][j]<elt)
 	            i++;
-	            
-	        else 
+	        else
 	            j--;
 	    }
-	    
 	    return 0;
 	}
 };
