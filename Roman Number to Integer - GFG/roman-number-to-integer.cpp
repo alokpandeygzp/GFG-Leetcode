@@ -11,19 +11,30 @@ using namespace std;
 class Solution {
   public:
     int romanToDecimal(string &str) {
-        unordered_map<char,int> m{{'I',1},{'V',5},{'X',10},{'L',50},
-                {'C',100},{'D',500},{'M',1000}};
+        map<char,int> mp;
+        mp.insert({'I',1});
+        mp.insert({'V',5});
+        mp.insert({'X',10});
+        mp.insert({'L',50});
+        mp.insert({'C',100});
+        mp.insert({'D',500});
+        mp.insert({'M',1000});
+        
         int ans=0;
         
         for(int i=0;i<str.size();i++)
         {
-            if(m[str[i]]<m[str[i+1]])
-                ans-=m[str[i]];
+            if(mp[str[i]]<mp[str[i+1]])
+            {
+                ans+=(mp[str[i+1]]-mp[str[i]]);
+                i++;
+            }
             else
-                ans+=m[str[i]];
+            {
+                ans+=mp[str[i]];
+            
         }
         return ans;
-        
     }
 };
 
