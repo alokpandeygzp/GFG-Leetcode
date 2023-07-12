@@ -8,37 +8,27 @@ class Solution
 {
     public:
     //Function is to check whether two strings are anagram of each other or not.
-    const int CHAR=256;
-    bool isAnagram(string a, string b){
-        
-        if(a.length()!=b.length())
+    bool isAnagram(string a, string b)
+    {
+        if(a.size()!=b.size())
             return false;
             
-        map<char,int> mp;
-        
-        for(int i=0;i<a.length();i++)
+        map<char, int> mp;
+        for(int i=0;i<a.size();i++)
             mp[a[i]]++;
         
-        // for(auto it:mp)
-        //     cout<<it.first<<it.second<<", ";
-        
-        // cout<<endl<<endl;
-        for(int i=0;i<b.length();i++)
+        for(int i=0;i<b.size();i++)
         {
-            // cout<<b[i]<<mp[b[i]]<<", ";
-            if(mp.find(b[i])==mp.end())
-                return false;
-            else
+            if(mp.find(b[i])!=mp.end())
+            {
                 mp[b[i]]--;
-        }
-        
-        for(auto it:mp)
-            if(it.second==0)
-                mp.erase(it.first);
-        
-        if(mp.size()!=0)
-            return false;
+                if(mp[b[i]]==0)
+                    mp.erase(b[i]);
+            }
+            else
+                return false;
             
+        }
         return true;
     }
 
