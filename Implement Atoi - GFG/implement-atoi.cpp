@@ -9,31 +9,25 @@ using namespace std;
 
 class Solution{
   public:
+    /*You are required to complete this method */
     int atoi(string str) 
     {
-        int n=str.length();
-        int ans=0;
-        int flag=0;
-        for(int i=0;i<n;i++)
+        int flagNeg=0,ans=0;
+        for(int i=0;i<str.size();i++)
         {
             if(str[i]>=48 && str[i]<=57)
             {
                 ans=ans*10+(str[i]-'0');
             }
-            else
+            else if(str[0]=='-')
             {
-                if(i==0 && str[i]=='-')
-                {
-                    flag=1;
-                    continue;
-                }
-                else
-                    return -1;
+                str[0]='@';
+                flagNeg=1;
             }
+            else
+                return -1;
         }
-        if(flag==0)
-            return ans;
-        return -ans;
+        return (flagNeg==1)?(-ans):ans;
     }
 };
 
