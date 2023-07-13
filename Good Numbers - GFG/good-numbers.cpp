@@ -1,56 +1,36 @@
-//{ Driver Code Starts
-// Initial Template for C++
+#include<iostream>
+#include<queue>
 
-#include <bits/stdc++.h>
 using namespace std;
 
-// } Driver Code Ends
-// User function template for C++
+string findNthGood(int n)
+{
+    queue<string> q;
+    q.push("1");
+    q.push("2");
 
-class Solution {
-  public:
-    bool checkGood(int n,int D)
+    string nthGoodNumber;
+    for (int i=1;i<=n; i++)
     {
-        int dig=n%10;
-        if(dig==D)
-            return false;
-        int sum=dig;
-        n=n/10;
-        
-        while(n>0)
-        {
-            dig=n%10;
-            if(dig<=sum || dig==D)
-                return false;
-            sum=sum+dig;
-            n=n/10;
-        }
-        return true;
-    }
-    vector<int> goodNumbers(int L, int R, int D) {
-        vector<int> ans;
-        for(int i=L;i<=R;i++)
-        {
-            if(checkGood(i,D))
-            {
-                ans.push_back(i);
-            }
-        }
-        return ans;
-    }
-};
+        nthGoodNumber = q.front();
+        q.pop();
 
-//{ Driver Code Starts.
-int main() {
-    int t;
-    cin >> t;
-    while (t--) {
-        int L, R, D;
-        cin >> L >> R >> D;
-        Solution ob;
-        vector<int> ans = ob.goodNumbers(L, R, D);
-        for (auto u : ans) cout << u << " ";
-        cout << "\n";
+        q.push(nthGoodNumber + "1");
+        q.push(nthGoodNumber + "2");
     }
+
+    return nthGoodNumber;
 }
-// } Driver Code Ends
+
+int main()
+{
+    int T;
+    cin >> T;
+    while (T--)
+    {
+        int n;
+        cin >> n;
+        cout<<findNthGood(n)<<endl;
+    }
+    return 0;
+}
