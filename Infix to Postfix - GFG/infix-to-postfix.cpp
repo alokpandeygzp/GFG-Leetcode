@@ -8,50 +8,15 @@ using namespace std;
 class Solution {
   public:
     // Function to convert an infix expression to a postfix expression.
-    int checkPref(char ch1, char ch2)
-    {
-        map<char,int> mp;
-        mp['+']=1;
-        mp['-']=1;
-        mp['*']=2;
-        mp['/']=2;
-        mp['^']=3;
-        
-        if(mp[ch1]==mp[ch2])        return 0;
-        else if(mp[ch1]>mp[ch2])    return 1;
-        else if(mp[ch1]<mp[ch2])    return -1;
-    }
     string infixToPostfix(string s) 
     {
         stack<char> st;
         string ans="";
-        
-        for(int i=0;i<s.size();i++)
+        map<char,int> mp={{'+',1},{'-',1},{'*',2},{'/',2},{'^',3}};
+    
+        for(char ch:s)
         {
-            char ch=s[i];
-            
-            //Operators
-            if(ch=='*' || ch=='/' || ch=='+' || ch=='-' || ch=='^')
-            {
-                if(st.empty())
-                    st.push(ch);
-                else
-                {
-                    if(checkPref(ch,st.top())==1)
-                        st.push(ch);
-                    else
-                    {
-                        while(!st.empty() && (checkPref(ch,st.top())==-1 || checkPref(ch,st.top())==0))
-                        {
-                            ans+=st.top();
-                            st.pop();
-                        }
-                        st.push(ch);
-                    }
-                }
-            }
-            
-            else if(ch=='(')
+            if(ch=='(')
                 st.push(ch);
             else if(ch==')')
             {
@@ -62,15 +27,25 @@ class Solution {
                 }
                 st.pop();
             }
+            else if(mp.find(ch)!=mp.end())
+            {
+                while(!st.empty() && st.top()!='(' && mp[ch]<=mp[st.top()])
+                {
+                    ans+=st.top();
+                    st.pop();
+                }
+                st.push(ch);
+            } 
             else
                 ans+=ch;
         }
-        
-        while(!st.empty())
+    
+        while (!st.empty()) 
         {
             ans+=st.top();
             st.pop();
         }
+    
         return ans;
     }
 };
