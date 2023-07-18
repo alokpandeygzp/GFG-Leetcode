@@ -6,23 +6,21 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    void print_divisors(int n) {
-        
-        int i;
-
-        for(i=1;i*i<n;i++)
+    void print_divisors(int n)
+    {
+        vector<int> ans;
+        for(int i=1;i*i<=n;i++)
         {
             if(n%i==0)
-                cout<<i<<" ";
+            {
+                ans.push_back(i);
+                if(i!=n/i)
+                    ans.push_back(n/i);
+            }
         }
-    
-        if(i*i==n)
+        sort(ans.begin(),ans.end());
+        for(auto i:ans)
             cout<<i<<" ";
-    
-        for(i=i-1;i>=1;i--) {
-            if (n%i==0)
-                cout<<(n/i)<<" ";
-        }
     }
 };
 
