@@ -8,24 +8,20 @@ class Solution {
   public:
     vector<int> nextGreaterElement(int N, vector<int>& arr) 
     {
-        vector<int> ans;
+        vector<int> ans(N,-1);
         stack<int> s;
-        for(int i=2*N-1;i>=0;i--) 
+        for(int i=2*N-1;i>=0;i--)
         {
             while(!s.empty() && s.top()<=arr[i%N])
                 s.pop();
                 
-            if(i<N)
+            if(i<N) 
             {
-                if(s.empty())
-                    ans.push_back(-1);
-                else
-                    ans.push_back(s.top());
+                if(!s.empty())
+                    ans[i]=s.top();
             }
-
             s.push(arr[i%N]);
         }
-        reverse(ans.begin(), ans.end());
         return ans;
     }
 };
