@@ -10,23 +10,22 @@ class Solution {
     {
         stack<int> s;
         
-        for(int i=0;i<N;i++) 
+        for(int val:asteroids) 
         {
-            if(!s.empty() && s.top()>0 && asteroids[i]<0)
-            {
-                while(!s.empty() && s.top()>0 && s.top()<abs(asteroids[i]))
-                    s.pop();
-                
-                //Either Stack empty or both negative
-                if(s.empty() || s.top()<0)
-                    s.push(asteroids[i]);
-                
-                //Or both are equal
-                else if(s.top()==abs(asteroids[i]))
-                    s.pop();
-            } 
+            if(val>0)
+                s.push(val);
             else
-                s.push(asteroids[i]);
+            {
+                while(s.size()>0 && s.top()>0 && s.top()<-val)
+                    s.pop();
+                
+                if(s.size()>0 && s.top()==-val)
+                    s.pop();
+                else if (s.size()>0 && s.top()>-val)
+                    continue;
+                else
+                    s.push(val);
+            }
         }
         
         vector<int> ans;
