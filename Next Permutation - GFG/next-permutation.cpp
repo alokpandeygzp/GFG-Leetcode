@@ -9,27 +9,38 @@ using namespace std;
 
 class Solution{
 public:
-    vector<int> nextPermutation(int N, vector<int> arr){
-        int i,j;
-        
-        for(i=N-2;i>=0;i--)
-            if(arr[i]<arr[i+1])
-                break;
-        
-        //Khatam hone ke bad reverse krna hai
-        if(i<0) 
-            reverse(arr.begin(),arr.end());
-        else
+    vector<int> nextPermutation(int N, vector<int> arr)
+    {
+        //Step 1: finding break point
+        int ind=-1;
+        for(int i=N-2;i>=0;i--)
         {
-            // i=2 ke baad se j=n-1 tak reverse krna hai
-            for(j=N-1;j>i;j--)
+            if(arr[i]<arr[i+1])
             {
-                if(arr[j]>arr[i])
-                    break;
+                ind=i;
+                break;
             }
-            swap(arr[i],arr[j]);
-            reverse(arr.begin()+i+1,arr.end());
         }
+        
+        //If break point doesn't exist
+        if(ind==-1)
+        {
+            reverse(arr.begin(),arr.end());
+            return arr;
+        }
+        
+        //Step 2: finding greater elt from right
+        for(int i=N-1;i>=ind;i--)
+        {
+            if(arr[i]>arr[ind])
+            {
+                swap(arr[i],arr[ind]);
+                break;
+            }
+        }
+        
+        //Step 3: reversing the right half
+        reverse(arr.begin()+ind+1,arr.end());
         return arr;
     }
 };
