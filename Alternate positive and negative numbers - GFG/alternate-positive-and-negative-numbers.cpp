@@ -10,43 +10,33 @@ public:
 
 	void rearrange(int arr[], int n) {
 	    vector<int> pos,neg;
-	    
 	    for(int i=0;i<n;i++)
 	    {
-	        if(arr[i]<0)
-	            neg.push_back(arr[i]);
-	        else
-	            pos.push_back(arr[i]);
+	        if(arr[i]<0)    neg.push_back(arr[i]);
+	        else            pos.push_back(arr[i]);
 	    }
-	    
-	    int ns=neg.size(),ps=pos.size();
-	    
-	    int i=0,j=1,x=0;
-	    while(x<ps && x<ns)
+	    if(pos.size()<neg.size())
 	    {
-	       // cout<<x<<" "<<i<<" "<<j<<endl;
-	        arr[i]=pos[x];
-	        i+=2;
-	        arr[j]=neg[x];
-	        j+=2;
-	        
-	        x++;
+	        for(int i=0;i<pos.size();i++)
+	        {
+	            arr[2*i]=pos[i];
+	            arr[2*i+1]=neg[i];
+	        }
+	        int index=pos.size()*2;
+	        for(int i=pos.size();i<neg.size();i++)
+	            arr[index++]=neg[i];
 	    }
-	    
-	    while(x<ps)
+	    else
 	    {
-	        arr[i]=pos[x];
-	        i++;
-	        x++;
+	        for(int i=0;i<neg.size();i++)
+	        {
+	            arr[2*i]=pos[i];
+	            arr[2*i+1]=neg[i];
+	        }
+	        int index=neg.size()*2;
+	        for(int i=neg.size();i<pos.size();i++)
+	            arr[index++]=pos[i];
 	    }
-	    
-	    while(x<ns)
-	    {
-	        arr[i]=neg[x];
-	        i++;
-	        x++;
-	    }
-	   // cout<<x<<endl;
 	}
 };
 
