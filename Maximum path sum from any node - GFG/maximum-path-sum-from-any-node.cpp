@@ -84,21 +84,21 @@ Node *buildTree(string str) {
 class Solution {
   public:
     //Function to return maximum path sum from any node in a tree.
-    int findMaxPathSum(Node * root, int & maxi) {
-      if (root == NULL) 
+    int solve(Node * root, int & maxi) {
+      if(root==NULL) 
         return 0;
     
-      int leftMaxPath = max(0, findMaxPathSum(root -> left, maxi));
-      int rightMaxPath = max(0, findMaxPathSum(root -> right, maxi));
-      int val = root -> data;
-      maxi = max(maxi, (leftMaxPath + rightMaxPath) + val);
-      return max(leftMaxPath, rightMaxPath) + val;
+      int left=max(0, solve(root->left, maxi));
+      int right=max(0, solve(root->right, maxi));
+      
+      maxi=max(maxi, (left+right)+root->data);
+      return max(left, right)+root->data;
     
     }
     int findMaxSum(Node* root)
     {
-        int maxi = INT_MIN;
-        findMaxPathSum(root, maxi);
+        int maxi=INT_MIN;
+        solve(root,maxi);
         return maxi;
     }
 };
