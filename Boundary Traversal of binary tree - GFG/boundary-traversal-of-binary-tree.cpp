@@ -154,14 +154,13 @@ public:
         findLeaves(root,leaves);
         findRight(root->right,right);
         
-        reverse(right.begin(),right.end());
-        
         if(root->left || root->right)
             ans.push_back(root->data);
             
-        for(auto i: left)   ans.push_back(i);
-        for(auto i: leaves) ans.push_back(i);
-        for(auto i: right)  ans.push_back(i);
+        ans.insert(ans.end(), left.begin(), left.end());
+        ans.insert(ans.end(), leaves.begin(), leaves.end());
+        ans.insert(ans.end(), right.rbegin(), right.rend());
+
         
         
         return ans;
