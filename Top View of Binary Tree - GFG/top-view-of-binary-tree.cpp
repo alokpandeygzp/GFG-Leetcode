@@ -105,33 +105,36 @@ class Solution
     vector<int> topView(Node *root) 
     {
         vector<int> ans;
-        if (root == NULL)
+        if(root==NULL)
             return ans;
     
         queue<pair<int, Node *>> q;
-        map<int, Node*> mp; // Use a map to store nodes at each horizontal distance
+        map<int,int> mp;
     
         q.push({0, root});
-        while (!q.empty()) {
-            int size = q.size();
-            for (int i = 0; i < size; i++) {
-                auto temp = q.front();
+        while(!q.empty()) 
+        {
+            int size=q.size();
+            for(int i=0;i<size;i++) 
+            {
+                auto temp=q.front();
                 q.pop();
+                
+                int line=temp.first;
+                Node *node=temp.second;
     
-                if (temp.second->left)
-                    q.push({temp.first-1, temp.second->left});
-                if (temp.second->right)
-                    q.push({temp.first+1, temp.second->right});
-    
-                // Only store the first node encountered at each horizontal distance
-                if(mp.find(temp.first) == mp.end())
-                    mp[temp.first] = temp.second;
+                if(mp.find(line)==mp.end())
+                    mp[line]=node->data;
+                    
+                if(node->left)
+                    q.push({line-1, node->left});
+                if(node->right)
+                    q.push({line+1, node->right});
             }
         }
     
-        // Traverse the map and pick the topmost node at each horizontal distance
         for (auto it : mp)
-            ans.push_back(it.second->data); 
+            ans.push_back(it.second); 
         return ans;
     }
 
