@@ -103,34 +103,39 @@ class Solution
     //Function to return a list of nodes visible from the top view 
     //from left to right in Binary Tree.
     
-    void solve(Node *root, map<int,map<int,vector<int>>> &mp, int flag, int height)
+    void solve(Node *root, map<int, map<int, int>> &mp, int flag, int height)
     {
-        if(root==NULL)
+        if (root == NULL)
             return;
+    
+        // height is used to maintain height-wise sorted output
         
-        //height is used to maintain height wise sorted output
-        mp[flag][height].push_back(root->data);
-        if(root->left)  solve(root->left,mp,flag-1,height+1);
-        if(root->right) solve(root->right,mp,flag+1,height+1);
+        if(mp[flag].find(height) == mp[flag].end()) 
+            mp[flag][height] = root->data;
+            
+        if(root->left)
+            solve(root->left, mp, flag-1, height+1);
+        if(root->right)
+            solve(root->right, mp, flag+1, height+1);
     }
+    
     vector<int> topView(Node *root)
     {
-        map<int,map<int,vector<int>>> mp;
+        map<int, map<int, int>> mp;
         solve(root, mp, 0, 0);
-        
+    
         vector<int> ans;
-        for(auto it: mp)
+        for (auto it : mp)
         {
             auto col = it.second;
-            for(auto point : col){
-                // ans.insert(ans.end(), point.second.begin(), point.second.end());
-                ans.push_back(point.second[0]);
+            for (auto point : col)
+            {
+                ans.push_back(point.second);
                 break;
             }
         }
         return ans;
     }
-
 };
 
 
