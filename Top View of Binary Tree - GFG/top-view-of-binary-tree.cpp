@@ -102,40 +102,39 @@ class Solution
     public:
     //Function to return a list of nodes visible from the top view 
     //from left to right in Binary Tree.
-    
-    void solve(Node *root, map<int, map<int, int>> &mp, int flag, int height)
+    vector<int> topView(Node *root) 
     {
-        if (root == NULL)
-            return;
-    
-        // height is used to maintain height-wise sorted output
-        
-        if(mp[flag].find(height) == mp[flag].end()) 
-            mp[flag][height] = root->data;
-            
-        if(root->left)
-            solve(root->left, mp, flag-1, height+1);
-        if(root->right)
-            solve(root->right, mp, flag+1, height+1);
-    }
-    
-    vector<int> topView(Node *root)
-    {
-        map<int, map<int, int>> mp;
-        solve(root, mp, 0, 0);
-    
         vector<int> ans;
-        for (auto it : mp)
-        {
-            auto col = it.second;
-            for (auto point : col)
-            {
-                ans.push_back(point.second);
-                break;
+        if (root == NULL)
+            return ans;
+    
+        queue<pair<int, Node *>> q;
+        map<int, Node*> mp; // Use a map to store nodes at each horizontal distance
+    
+        q.push({0, root});
+        while (!q.empty()) {
+            int size = q.size();
+            for (int i = 0; i < size; i++) {
+                auto temp = q.front();
+                q.pop();
+    
+                if (temp.second->left)
+                    q.push({temp.first-1, temp.second->left});
+                if (temp.second->right)
+                    q.push({temp.first+1, temp.second->right});
+    
+                // Only store the first node encountered at each horizontal distance
+                if(mp.find(temp.first) == mp.end())
+                    mp[temp.first] = temp.second;
             }
         }
+    
+        // Traverse the map and pick the topmost node at each horizontal distance
+        for (auto it : mp)
+            ans.push_back(it.second->data); 
         return ans;
     }
+
 };
 
 
