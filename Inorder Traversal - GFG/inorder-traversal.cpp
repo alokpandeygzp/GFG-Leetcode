@@ -32,19 +32,37 @@ struct Node {
 class Solution {
   public:
     // Function to return a list containing the inorder traversal of the tree.
-    void inorderUtil(Node* root, vector<int> &ans)
-    {
-        if(root==NULL)
-            return;
-        inorderUtil(root->left,ans);
-        ans.push_back(root->data);
-        inorderUtil(root->right,ans);
-    }
     vector<int> inOrder(Node* root) 
     {
-        vector<int> ans;
-        inorderUtil(root,ans);
-        return ans;
+        vector<int> inOrder;
+        Node *curr=root;
+        while(curr!=NULL)
+        {
+            if(curr->left==NULL)
+            {
+                inOrder.push_back(curr->data);
+                curr=curr->right;
+            }
+            else
+            {
+                Node *prev=curr->left;
+                while(prev->right && prev->right!=curr)
+                    prev=prev->right;
+                
+                if(prev->right==NULL)
+                {
+                    prev->right=curr;
+                    curr=curr->left;
+                }
+                else
+                {
+                    prev->right=NULL;
+                    inOrder.push_back(curr->data);
+                    curr=curr->right;
+                }
+            }
+        }
+        return inOrder;
     }
 };
 
