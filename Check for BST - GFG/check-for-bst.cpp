@@ -30,8 +30,7 @@ class Solution
         // Check if the current node's value is within the valid range
         if (root->data <= minValue || root->data >= maxValue) 
             return false;
-    
-        // Recursively check the left and right subtrees with updated constraints
+
         return isBST(root->left, minValue, root->data) &&
                isBST(root->right, root->data, maxValue);
     }
