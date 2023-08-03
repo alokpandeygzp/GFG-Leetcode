@@ -12,24 +12,28 @@ class Solution
     { 
         s+=".";
         stack<string> st;
-        int i;
         string str="";
-        for(i=0;i<s.length();i++)
+        
+        for(int i=0;i<s.size();i++)
         {
             if(s[i]=='.')
             {
                 st.push(str);
                 str="";
             }
-            else str+=s[i];
+            else
+                str+=s[i];
         }
+        
         string ans="";
         while(st.size()!=1)
         {
             ans+=st.top()+".";
             st.pop();
         }
-        ans+=st.top();// The last word should'nt have a space after it
+        
+        //Last word
+        ans+=st.top();
         return ans;
     } 
 };
