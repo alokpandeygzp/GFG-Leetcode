@@ -6,31 +6,26 @@ using namespace std;
 class Solution{
 public:
     // function to find totient of n
-    long long ETF(int n) 
+    long long ETF(long long n)
     {
-    long long result = n; // Initialize result with n
-
-    // Iterate through all prime factors of n
-    for (long long i = 2; i * i <= n; ++i) {
-        if (n % i == 0) {
-            // i is a prime factor of n
-            while (n % i == 0) {
-                n /= i;
+        long long result=n;
+        for(int i=2;i*i<=n;i++)
+        {
+            if(n%i==0)
+            {
+                while(n%i==0)
+                {
+                    n=n/i;
+                }
+                result-=result/i;
             }
-            // Reduce result using the formula
-            result -= result / i;
         }
+        if(n>1)
+            result-=result/n;
+        return result;
     }
-
-    // If n is still greater than 1, it's a prime factor
-    if (n > 1) {
-        result -= result / n;
-    }
-
-    return result;
-}
-
 };
+
 
 //{ Driver Code Starts.
 int main() 
