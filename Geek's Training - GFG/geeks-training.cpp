@@ -20,7 +20,6 @@ class Solution
         {
             for(int last=0;last<4;last++)
             {
-                dp[day][last]=0;
                 for(int task=0;task<=2;task++) 
                 {
                     if(task!=last)
