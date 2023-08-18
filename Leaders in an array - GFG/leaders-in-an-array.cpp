@@ -11,20 +11,25 @@ using namespace std;
 class Solution{
     //Function to find the leaders in the array.
     public:
-    vector<int> leaders(int arr[], int n){
-        
-        int currMax=arr[n-1];
+    vector<int> leaders(int a[], int n)
+    {
         vector<int> ans;
+        stack<int> s;
+        if(n==0) return ans;
         
+        int maxi=INT_MIN;
         for(int i=n-1;i>=0;i--)
         {
-            if(arr[i]>=currMax)
-            {
-                currMax=arr[i];
-                ans.push_back(currMax);
+            if(a[i]>=maxi) {
+                maxi=a[i];
+                s.push(maxi);
             }
         }
-        reverse(ans.begin(),ans.end());
+        while(!s.empty())
+        {
+            ans.push_back(s.top());
+            s.pop();
+        }
         return ans;
     }
 };
