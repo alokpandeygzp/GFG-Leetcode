@@ -9,11 +9,10 @@ class Solution {
     int totalFruits(int N, vector<int> &fruits) 
     {
         int i=0,j=0;
-        int n=fruits.size();
+        int ans=0;
         map<int,int> mp;
-        int ans=INT_MIN;
         
-        while(j<n)
+        while(j<N)
         {
             mp[fruits[j]]++;
             if(mp.size()<=2)
@@ -30,8 +29,8 @@ class Solution {
                         mp.erase(fruits[i]);
                     i++;
                 }
-                if(mp.size()==2)
-                    ans=max(ans,j-i+1);
+                // if(mp.size()==2)
+                //     ans=max(ans,j-i+1);
                 j++;
             }
         }
