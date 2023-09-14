@@ -6,8 +6,7 @@ using namespace std;
 class Solution{
 
 	public:
-
-    int f(int n, int arr[], int k, int sum, vector<vector<int>>& dp)
+	int f(int n, int arr[], int k, int sum, vector<vector<int>>& dp)
     {
         if(n<0)         return (sum==k)?1:0;
         if(dp[n][sum]!=-1)   return dp[n][sum];
@@ -25,7 +24,6 @@ class Solution{
         vector<vector<int>> dp(n,vector<int>(k+1, -1));
         return f(n-1,arr,k,0,dp);
 	}
-	  
 };
 
 //{ Driver Code Starts.
