@@ -11,18 +11,14 @@ using namespace std;
 class Solution{
     public:
     // Function to check if given number n is a power of two.
-    bool isPowerofTwo(long long n){
-        
-        if(n==1)
-            return true;
-        while(n>0)
-        {
-            if(n%2==1)
-                break;
-            n=n>>1;
+    bool isPowerofTwo(long long n)
+    {
+        if (n <= 0) {
+        return false; // Negative numbers and zero are not powers of two
         }
-        return (n==1);
-        
+
+        // Check if there is exactly one bit set in the binary representation of n
+        return (n & (n - 1)) == 0;
     }
 };
 
