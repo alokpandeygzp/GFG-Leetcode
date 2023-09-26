@@ -10,40 +10,38 @@ class Solution{
     public:
     // arr[] : int input array of integers
     // k : the quadruple sum required
-    vector<vector<int>> fourSum(vector<int> &arr, int key) {
+    vector<vector<int>> fourSum(vector<int> &arr, int sum) {
         vector<vector<int>> ans;
-        set<vector<int>> st;
-        sort(arr.begin(),arr.end());
+        set<vector<int>> s;
         int n=arr.size();
-        
-        for(int i=0;i<n;i++)
+        sort(arr.begin(),arr.end());
+        for(int i=0;i<n-1;i++)
         {
-            for(int j=i+1;j<n-1;j++)
+            for(int j=i+1;j<n;j++)
             {
-                int k=j+1,l=n-1;
+                int k=j+1, l=n-1;
+                vector<int> temp;
                 while(k<l)
                 {
-                    int sum=arr[i]+arr[j]+arr[k]+arr[l];
-                    if(sum==key)
+                    int tempSum=arr[i]+arr[j]+arr[k]+arr[l];
+                    if(tempSum==sum)
                     {
-                        vector<int>temp;
                         temp.push_back(arr[i]);
                         temp.push_back(arr[j]);
                         temp.push_back(arr[k]);
                         temp.push_back(arr[l]);
-                        st.insert(temp);
-                    
-                        k++;
-                        l--;
+                        s.insert(temp);
+                        temp.clear();
                     }
-                    else if(sum>key)
+                    if(tempSum>sum)
                         l--;
-                    else if(sum<key)
+                    else
                         k++;
                 }
             }
         }
-        for(auto i:st) 
+        
+        for(auto i:s)
             ans.push_back(i);
         return ans;
     }
