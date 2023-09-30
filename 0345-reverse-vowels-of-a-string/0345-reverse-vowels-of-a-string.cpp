@@ -1,27 +1,19 @@
 class Solution {
 public:
-    bool isVowel(char c) {
-        unordered_set<char> vowels={'a','e','i','o','u'};
-        return vowels.count(tolower(c)) > 0;
-    }
-
     string reverseVowels(string s) {
-        int left=0;
-        int right=s.length()-1;
-
-        while(left<right) {
-            while (left<right && !isVowel(s[left]))
-                left++;
-            while (left<right && !isVowel(s[right]))
-                right--;
-
-            if(left<right) {
-                swap(s[left],s[right]);
-                left++;
-                right--;
+        map<int,char> mp;
+        string vowel="aeiouAEIOU";
+        
+        for(int i=0,j=s.length()-1;i<j;i++,j--)
+        {
+            while(i<j && vowel.find(s[i]) == string::npos) i++;
+            while(i<j && vowel.find(s[j]) == string::npos) j--;
+            
+            if(i<j)
+            {
+                swap(s[i],s[j]);
             }
-        }
-
+        }      
         return s;
     }
 };
