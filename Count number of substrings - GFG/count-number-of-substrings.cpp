@@ -11,47 +11,43 @@ using namespace std;
 class Solution
 {
   public:
-    long long int solve(string s, int k)
+    long long int solve(string &s, int k)
     {
-        int n=s.size();
-        vector<int> freq(26,0);
-        int dist_cnt = 0;
-        long long int ans=0;
-        
-        int i=0;  //start of window
-        int j=0;  //end of window
-        
-        while(j<n)
+        if(s.size()==0)
+            return 0;
+            
+        vector<int> mp(26,0);
+        long long int num=0;
+        int i=0;
+        int distinct_count=0;
+     
+        for(int j=0;j<s.size();j++)
         {
-            freq[s[j]-'a']++;
+            if(mp[s[j]-'a']==0)
+                distinct_count++;
+                
+            mp[s[j]-'a']++;
             
-            if(freq[s[j]-'a'] == 1)
-                dist_cnt++;
-            
-            //Decreasing the size of window
-            while(dist_cnt > k)
+            while(distinct_count>k)
             {
-                freq[s[i]-'a']--;
-                if(freq[s[i]-'a'] == 0)
-                    dist_cnt--;
+                mp[s[i]-'a']--;
+                if(mp[s[i]-'a']==0)
+                    distinct_count--;
                 i++;
             }
-            j++;
-            ans += (j-i+1);
+            num+=j-i+1;
         }
-        return ans;
+        return num;
     }
     
     
     long long int substrCount(string s, int k) 
     {
-        long long int ans = solve(s,k) - solve(s,k-1);
+        // (Atmost k) - (Atmost k-1) = Exactly k
+        long long int ans=solve(s,k)-solve(s,k-1);
         return ans;
     }
 };
-
-//{ Driver Code Starts.
-
 
 int main()
 {
