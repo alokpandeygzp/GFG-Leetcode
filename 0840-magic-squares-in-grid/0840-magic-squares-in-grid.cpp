@@ -1,55 +1,56 @@
 class Solution {
 public:
     
-    int isMagic(int row, int col, vector<vector<int>>& grid) {
+    bool isMagic(int row, int col, vector<vector<int>>& grid) {
         int n=grid.size();
         int m=grid[0].size();
-        map<int,int> mp;
+        vector<int> count(10, 0);
         
-        for(int i=row-1;i<row+2;i++) {
+        for(int i=row;i<row+3;i++) {
+            for(int j=col;j<col+3;j++) {
+                int num = grid[i][j];
+                if(num<1 || num>9 || ++count[num] > 1) 
+                    return false;
+            }
+        }
+        
+        for(int i=row;i<row+3;i++) {
             int colSum=0;
-            for(int j=col-1;j<col+2;j++) {
-                if(i>=0 && i<n && j>=0 && j<m) {
-                    mp[grid[i][j]]++;
-                    colSum+=grid[i][j];
-                }
+            for(int j=col;j<col+3;j++) {
+                colSum+=grid[i][j];
             }
-            // cout<<"colSum:"<<colSum<<",";
-            if(colSum!=15) {
-                return 0;
-            }
+            if(colSum!=15)
+                return false;
         }
         
-        for(int j=col-1;j<col+2;j++) {
+        for(int j=col;j<col+3;j++) {
             int rowSum=0;
-            for(int i=row-1;i<row+2;i++) {
-                if(i>=0 && i<n && j>=0 && j<m) {
-                    rowSum+=grid[i][j];
-                }
+            for(int i=row;i<row+3;i++) {
+                rowSum+=grid[i][j];
             }
-            // cout<<"rowSum:"<<rowSum<<",";
-            if(rowSum!=15) {
-                return 0;
-            }
+            if(rowSum!=15)
+                return false;
         }
         
-        for(auto num: mp) {
-            if((num.first>9 || num.first<1) || mp.size()!=9) {
-                return 0;
-            }
+        int diag1=0, diag2=0;
+        for(int i=0;i<3;i++) {
+            diag1 += grid[row+i][col+i];
+            diag2 += grid[row+2-i][col+i];
         }
+        if(diag1!=15 || diag2!=15) 
+            return false;
         
-        return 1;
+        return true;
     }
     int numMagicSquaresInside(vector<vector<int>>& grid) {
         int n=grid.size();
         int m=grid[0].size();
         
         int sum=0;
-        for(int i=0;i<n;i++) {
-            for(int j=0;j<m;j++) {
-                if(grid[i][j]==5) {
-                    sum+=isMagic(i,j,grid);
+        for(int i=0;i<=n-3;i++) {
+            for(int j=0;j<=m-3;j++) {
+                if(isMagic(i,j,grid)) {
+                    sum++;
                 }
             }
         }
